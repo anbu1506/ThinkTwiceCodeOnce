@@ -21,3 +21,25 @@ export function fetchTopTen() {
         { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
     ]
 }
+
+export function fetchQuestion(id: string) {
+    return {
+        ques: `question${id}`,
+        answer: `answer${id}`
+    }
+}
+
+export function fetchMyuploads() {
+    return [
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
+    ]
+}

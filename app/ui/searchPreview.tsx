@@ -11,7 +11,7 @@ export default function SearchPreview({ searchParams }: { searchParams: { search
                         questions.map((question: { ques: string, id: string }, index) => {
 
                             return <>
-                                <Link href={`/question${question.id}`}>
+                                <Link href={`/${question.id}/view`}>
                                     <div className="truncate text-white px-4  py-4 " >
                                         {
                                             question.ques
