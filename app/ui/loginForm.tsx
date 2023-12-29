@@ -12,7 +12,7 @@ export default function LoginForm() {
                     <div className="ml-10 text-white text-xl font-bold mt-[10%]">password</div>
                     <input name="password" placeholder="enter your password" type="password" className=" p-2 w-4/5 rounded mx-auto  outline-none bg-slate-800 text-white mt-6" />
                     <button type="submit" className="bg-blue-500 shadow-lg shadow-blue-500/50 text-white py-2 px-4 rounded-md mx-auto w-4/5 mt-[10%]">Login</button>
-                    <p className="mx-auto mt-2">don't have an account? <Link href="/register">register here</Link></p>
+                    <p className="mx-auto mt-2">dont have an account? <Link href="/register">register here</Link></p>
                 </div>
             </form>
         </div>
