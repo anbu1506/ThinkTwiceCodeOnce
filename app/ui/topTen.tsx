@@ -5,11 +5,10 @@ export default function TopTen() {
     const topTen = fetchTopTen();
     return (
         <>
-            {topTen.map((question) => (<>
-                <div className=" my-5">
+            {topTen.map((question, index) => (
+                <div className=" my-5" key={index}>
                     <Preview question={question.ques} answer={question.answer} />
                 </div>
-            </>
             ))}
         </>
     )

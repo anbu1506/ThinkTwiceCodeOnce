@@ -1,4 +1,4 @@
-import NavBar from "../ui/navbar";
+import NavBar from "../ui/home/navbar";
 import Search from "../ui/search";
 import SearchPreview from "../ui/searchPreview";
 import TopTen from "../ui/topTen";
@@ -7,7 +7,6 @@ export default function Home({ searchParams }: { searchParams: { search: string 
 
     return (
         <div >
-            <NavBar></NavBar>
             <div className="mt-40">
                 <h1 className="text-center my-6">
                     Welcome to the <strong>Think Twice Code Once</strong> platform.

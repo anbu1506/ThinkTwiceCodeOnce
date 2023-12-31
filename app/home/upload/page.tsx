@@ -1,10 +1,8 @@
-import CodeForm from "@/app/ui/codeForm";
-import NavBar from "@/app/ui/navbar";
+import CodeForm from "@/app/ui/home/codeForm";
 
 export default function Upload() {
     return (<>
         <div>
-            <NavBar />
             <CodeForm />
         </div>
     </>)

@@ -10,7 +10,7 @@ export default function SearchPreview({ searchParams }: { searchParams: { search
                     {
                         questions.map((question: { ques: string, id: string }, index) => {
 
-                            return <>
+                            return <div key={index} >
                                 <Link href={`/${question.id}/view`}>
                                     <div className="truncate text-white px-4  py-4 " >
                                         {
@@ -20,7 +20,7 @@ export default function SearchPreview({ searchParams }: { searchParams: { search
                                     </div>
                                 </Link>
                                 {index == questions.length - 1 ? "" : <hr className="border-gray-600" />}
-                            </>
+                            </div>
                         })
                     }
                 </div>
