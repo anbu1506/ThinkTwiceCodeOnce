@@ -1,4 +1,4 @@
-import NavBar from "../ui/home/navbar";
+
 import Search from "../ui/search";
 import SearchPreview from "../ui/searchPreview";
 import TopTen from "../ui/topTen";

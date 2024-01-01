@@ -1,13 +1,13 @@
 import { fetchTopTen } from "../lib/data";
 import Preview from "./preview";
 
-export default function TopTen() {
-    const topTen = fetchTopTen();
+export default async function TopTen() {
+    const topTen = await fetchTopTen();
     return (
         <>
-            {topTen.map((question, index) => (
-                <div className=" my-5" key={index}>
-                    <Preview question={question.ques} answer={question.answer} />
+            {topTen?.map((question, index) => (
+                <div className=" my-16" key={index}>
+                    <Preview likes={question.likes} question={question.question} answer={question.answer} />
                 </div>
             ))}
         </>

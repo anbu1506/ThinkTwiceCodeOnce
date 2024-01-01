@@ -4,9 +4,10 @@ import { useState } from "react";
 import { HandThumbUpIcon as NotLikedIcon } from "@heroicons/react/24/outline";
 import { HandThumbUpIcon as LikedIcon } from "@heroicons/react/24/solid";
 
-export default function Preview({ question, answer }: { question: string, answer: string }) {
+export default function Preview({ question, answer, likes }: { question: string, answer: string, likes: number }) {
     const [isCopied, setIsCopied] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
+    const [likeCount, setLikeCount] = useState(likes);
 
     const handleCopyClick = async () => {
         try {
@@ -30,9 +31,10 @@ export default function Preview({ question, answer }: { question: string, answer
                             </span>
                         </div>
                         <div className="flex justify-end mx-2 my-2">
-                            <div onClick={() => { setIsLiked(!isLiked) }}>
+                            <div onClick={() => { setIsLiked(!isLiked); isLiked ? setLikeCount(likes) : setLikeCount(likes + 1) }}>
                                 {isLiked ? <LikedIcon className="h-6 w-6 mr-4" /> :
                                     <NotLikedIcon className="h-6 w-6 mr-4" />}
+                                {likeCount}
                             </div>
                             {
                                 isCopied ? "Copied !" :
@@ -42,7 +44,7 @@ export default function Preview({ question, answer }: { question: string, answer
                             }
                         </div>
                     </div>
-                    <pre className="overflow-auto  py-8 bg-gray-900 p-4 rounded-b-lg ">{answer}</pre>
+                    <p className="overflow-auto  py-8 bg-gray-900 p-4 rounded-b-lg ">{answer}</p>
                 </div>
             </div>
 
