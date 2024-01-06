@@ -6,11 +6,11 @@ export default async function ViewPage({ params }: { params: { id: string } }) {
     const question = await fetchQuestion(params.id)
     return (
         <>
-            <div className="bg-slate-900 fixed top-0 right-0 left-0 text-bold  text-2xl md:text-4xl text-center  py-4 shadow-lg shadow-blue-500/50">
+            <div className=" font-bold  text-2xl md:text-3xl  md: text-center  fixed top-0 right-0 left-0   py-4 shadow-lg text-white bg-slate-500">
                 <Link href={"/home"}>Think Twice Code Once</Link>
             </div>
             {
-                <div className="mt-40">
+                <div className="my-40">
                     {
                         question && <Preview likes={question.likes} question={question.question} answer={question.answer} />
                     }

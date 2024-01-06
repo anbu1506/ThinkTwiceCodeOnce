@@ -7,11 +7,11 @@ export default function Root({ searchParams }: { searchParams: { search: string 
 
   return (
     <div >
-      <div className="bg-slate-900 fixed top-0 right-0 left-0 text-bold  text-2xl md:text-4xl text-center  py-4 shadow-lg shadow-blue-500/50">
+      <div className=" fixed top-0 right-0 left-0 text-bold text-white text-2xl md:text-3xl text-center  py-4 shadow-lg bg-slate-500 ">
         <Link href={"/"}>Think Twice Code Once</Link>
       </div>
       <div className="mt-40">
-        <h1 className="text-center my-6">
+        <h1 className="text-center my-6 text-slate-400 font-serif">
           Welcome to the <strong>Think Twice Code Once</strong> platform.
         </h1>
       </div>
@@ -28,7 +28,8 @@ export default function Root({ searchParams }: { searchParams: { search: string 
       </div>
 
       <div className="flex justify-center">
-        <p className="w-96 md:w-1/2 font-bold text-2xl">Latest questions</p>
+        <p className="w-96 md:w-1/2 font-bold text-2xl bg-slate-500 text-center text-white p-2">Latest questions 🔥 :</p>
+
       </div>
       <TopTen></TopTen>
     </div>

@@ -6,7 +6,7 @@ export default async function TopTen() {
     return (
         <>
             {topTen?.map((question, index) => (
-                <div className=" my-16" key={index}>
+                <div className=" my-40" key={index}>
                     <Preview likes={question.likes} question={question.question} answer={question.answer} />
                 </div>
             ))}

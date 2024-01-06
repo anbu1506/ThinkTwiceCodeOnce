@@ -8,7 +8,7 @@ export default function MyUploads() {
             <div className="mt-40">
                 {uploads.map((question, index) => (
                     <div className=" my-5" key={index}>
-                        <Preview question={question.ques} answer={question.answer} />
+                        <Preview question={question.ques} answer={question.answer} likes={0} />
                     </div>
                 ))}
             </div>

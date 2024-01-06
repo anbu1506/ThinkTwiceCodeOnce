@@ -31,6 +31,6 @@
     "sequelize/orm.js",
     "sequelize/models.js",
     "sequelize/config.js"
-  ],
+, "app/ui/home/matrixRain.js"  ],
   "exclude": ["node_modules"]
 }

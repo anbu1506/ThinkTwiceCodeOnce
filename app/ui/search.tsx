@@ -23,9 +23,9 @@ export default function Search() {
 
     return (<>
         <div className="w-full" >
-            <div className="flex h-full justify-center items-center">
-                <MagnifyingGlassIcon className='w-12 h-12 bg-slate-700 p-2 rounded-l-lg shadow-2xl shadow-cyan-500/50'></MagnifyingGlassIcon>
-                <input className="pl-2 w-96 h-12 bg-slate-700 shadow-2xl shadow-cyan-500/50 text-white rounded-r-lg  outline-none" placeholder='search...' onChange={(e) => { handleSearch(e.target.value) }}></input>
+            <div className="flex h-full justify-center items-center p-4">
+                <MagnifyingGlassIcon className='w-12 h-12  p-2 rounded-l-lg shadow-2xl border border-slate-900 bg-slate-200'></MagnifyingGlassIcon>
+                <input className="pl-2 w-96 h-12  shadow-2xl  text-slate-500 rounded-r-lg border border-slate-900  outline-none" placeholder='search...' onChange={(e) => { handleSearch(e.target.value) }}></input>
             </div>
         </div>
     </>)

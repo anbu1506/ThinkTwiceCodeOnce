@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import MatrixRain from './ui/home/matrixRain'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,9 +15,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="en">
-      <body className={inter.className + " antialiased  text-slate-400 bg-slate-900"}>{children}</body>
+      <head>
+
+      </head>
+      <body className={inter.className + " antialiased font-normal bg-gray-50"}>
+        {children}
+      </body>
     </html>
   )
 }
