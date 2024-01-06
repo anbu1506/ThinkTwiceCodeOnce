@@ -1,7 +1,10 @@
+
 import Link from "next/link";
 import Search from "./ui/search";
 import SearchPreview from "./ui/searchPreview";
 import TopTen from "./ui/topTen";
+import { signIn } from "next-auth/react";
+import LoginBtn from "./ui/loginBtn";
 
 export default function Root({ searchParams }: { searchParams: { search: string } }) {
 
@@ -22,7 +25,8 @@ export default function Root({ searchParams }: { searchParams: { search: string 
         <SearchPreview searchParams={searchParams} ></SearchPreview>
       </div>
       <div className="my-20 flex justify-center">
-        <a href="/login">
+        <a href="/home">
+          {/* <LoginBtn></LoginBtn> */}
           <button className="bg-blue-500 shadow-lg shadow-blue-500/50 text-white py-2 px-4 rounded-md">Login</button>
         </a>
       </div>
