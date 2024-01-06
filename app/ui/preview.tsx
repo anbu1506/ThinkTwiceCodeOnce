@@ -1,10 +1,13 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HandThumbUpIcon as NotLikedIcon } from "@heroicons/react/24/outline";
 import { HandThumbUpIcon as LikedIcon } from "@heroicons/react/24/solid";
+import Prism from "prismjs";
+import "prismjs/themes/prism.css";
 
 export default function Preview({ question, answer, likes }: { question: string, answer: string, likes: number }) {
+
     const [isCopied, setIsCopied] = useState(false);
     const [isLiked, setIsLiked] = useState(false);
     const [likeCount, setLikeCount] = useState(likes);
@@ -18,11 +21,11 @@ export default function Preview({ question, answer, likes }: { question: string,
         }
     };
     return (<>
-        <div>
-            <div className="flex justify-center items-center">
-                <div className=" w-96 md:w-1/2 border border-slate-800 rounded-lg bg-gray-800">
-                    <div className="  flex rounded-t-lg justify-between border-b border-slate-800">
-                        <div className="text-lg font-sans font-bold py-2 px-4 flex">
+        <div >
+            <div className="flex justify-center items-center " >
+                <div className=" w-[350px] md:w-1/2  rounded-lg shadow-lg">
+                    <div className="bg-slate-500 p-2  text-white  flex rounded-t-lg justify-between  shadow-lg">
+                        <div className="text-lg px-4 flex items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z" />
                             </svg>
@@ -30,12 +33,14 @@ export default function Preview({ question, answer, likes }: { question: string,
                                 {question}
                             </span>
                         </div>
-                        <div className="flex justify-end mx-2 my-2">
+                        <div className="flex items-center justify-end mx-2 my-2">
                             <div onClick={() => { setIsLiked(!isLiked); isLiked ? setLikeCount(likes) : setLikeCount(likes + 1) }}>
-                                {isLiked ? <LikedIcon className="h-6 w-6 mr-4" /> :
-                                    <NotLikedIcon className="h-6 w-6 mr-4" />}
-                                {likeCount}
+                                {isLiked ? <LikedIcon className="h-6 w-6 " /> :
+                                    <NotLikedIcon className="h-6 w-6 " />}
                             </div>
+                            <span className="text-lg mr-4">
+                                {likeCount}
+                            </span>
                             {
                                 isCopied ? "Copied !" :
                                     <svg onClick={handleCopyClick} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -44,10 +49,12 @@ export default function Preview({ question, answer, likes }: { question: string,
                             }
                         </div>
                     </div>
-                    <p className="overflow-auto  py-8 bg-gray-900 p-4 rounded-b-lg ">{answer}</p>
+                    {/* <pre className="overflow-auto  py-8  p-4 rounded-b-lg  bg-white">{answer}</pre> */}
+                    <pre className="overflow-auto  py-8  p-4 rounded-b-lg  bg-white" dangerouslySetInnerHTML={{ __html: Prism.highlight(answer, Prism.languages.javascript, 'javascript') }} />
                 </div>
             </div>
 
         </div>
     </>)
+
 }

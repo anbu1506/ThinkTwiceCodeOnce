@@ -14,21 +14,21 @@ const links = [{ name: "home", path: "/home", icon: HomeIcon },
 export default function SideNav() {
     const path = usePathname()
     return (<>
-        <div className="h-full grow flex md:flex-col flex-row bg-slate-950">
+        <div className="h-full grow flex  justify-end border shadow-md bg-gray-50">
             {
                 links.map((link, index) => {
                     const Icon = link.icon
                     return (
                         <Link key={index} className={
-                            clsx("flex items-center p-2 m-2 hover:bg-slate-600 hover:rounded-md hover:p-4",
-                                { "bg-gray-700 rounded-md p-4": path === link.path, }
+                            clsx("flex items-center md:p-2 m-2 text-slate-400 font-semibold",
+                                { "text-blue-600 font-bold": path === link.path, }
                             )
-                        } href={link.path}><Icon className="h-6 w-6" /><p>{link.name}</p></Link>
+                        } href={link.path}><Icon className="h-6 w-6" /><p >{link.name}</p></Link>
                     )
                 })
             }
-            <form action="" className=" md:p-2 w-full" >
-                <button className="w-full flex hover:bg-slate-600 hover:rounded-md md:p-2"><PowerIcon className="w-6 h-6 my-2 " /><div className="my-2">Logout</div></button>
+            <form action="" className="flex items-center mx-2 text-slate-400 font-semibold" >
+                <button className="flex"><PowerIcon className="w-6 h-6 " /><div >Logout</div></button>
             </form>
         </div>
 
