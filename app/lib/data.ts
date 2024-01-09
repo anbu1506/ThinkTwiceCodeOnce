@@ -1,73 +1,67 @@
-import prisma from "@/prisma/prisma"
+import prisma from "@/prisma/prisma";
+import getSession from "./getSession";
 
 export default async function fetchSearchQuestions(query?: string) {
-  let searchResults:{question:string,id:number}[] = [] ;
+  let searchResults: { question: string; id: number }[] = [];
   try {
-    prisma.$connect();
     searchResults = await prisma.$queryRaw`
     SELECT question , id FROM Code
     WHERE question LIKE  CONCAT('%', ${query}, '%');`;
   } catch (error) {
-    console.error('Error fetching search results:', error);
+    console.error("Error fetching search results:", error);
   }
-  finally {
-    await prisma.$disconnect();}
   return searchResults;
 }
 
 export async function fetchTopTen() {
-   
-
-    prisma.$connect();
-        try {
-
-          const latestQuestions = await prisma.code.findMany({
-            orderBy: {
-              id: 'desc', 
-            },
-            take: 10, 
-          });
-          return latestQuestions;
-        } catch (error) {
-          console.error('Error fetching latest 10 posts:', error);
-        } finally {
-          await prisma.$disconnect();
-        }
-      
-
+  try {
+    const latestQuestions = await prisma.code.findMany({
+      orderBy: {
+        id: "desc",
+      },
+      take: 10,
+    });
+    return latestQuestions;
+  } catch (error) {
+    console.error("Error fetching latest 10 posts:", error);
+  }
 }
 
 export async function fetchQuestion(id: string) {
-    prisma.$connect();
+  try {
+    const question = await prisma.code.findFirst({
+      where: {
+        id: Number(id),
+      },
+    });
 
-    try {
-
-      const question = await prisma.code.findFirst({
-        where: {
-          id: Number(id),
-        },
-      });
-  
-        return question;
-      
-    } catch (error) {
-      console.error('Error fetching question:', error);
-    } finally {
-      await prisma.$disconnect();
-    }
+    return question;
+  } catch (error) {
+    console.error("Error fetching question:", error);
+  }
 }
 
-export function fetchMyuploads() {
-    return [
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-        { ques: "what is perceptron?", answer: "1" }, { ques: "what is semaphore?", answer: "2" }, { ques: "what is mutex", answer: "3" },
-    ]
+export async function fetchMyuploads() {
+  const session = await getSession();
+  try {
+    const myuploads = await prisma.code.findMany({
+      where: {
+        user: session.user.id,
+      },
+    });
+
+    return myuploads;
+  } catch (error) {
+    console.error("Error fetching my uploads:", error);
+  }
+}
+
+export async function getUploadsCount() {
+  const session = await getSession();
+  const count = await prisma.code.count({
+    where: {
+      user: session.user.id,
+    },
+  });
+  return count;
 }

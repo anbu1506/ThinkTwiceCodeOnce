@@ -1,10 +1,12 @@
 export type User = {
-    email: string;
-    password: string;
-}
+  email: string;
+  password: string;
+};
 
 export type Code = {
-    question: string,
-    answer :  string,
-    user    : string, 
-  }
+  question: string;
+  answer: string;
+  user: string;
+  id: number;
+  likes: number;
+};
