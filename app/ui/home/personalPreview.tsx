@@ -1,27 +1,19 @@
 "use client";
-
-import { useEffect, useState } from "react";
-import { HandThumbUpIcon as NotLikedIcon } from "@heroicons/react/24/outline";
-import { HandThumbUpIcon as LikedIcon } from "@heroicons/react/24/solid";
+import { DeleteCode } from "@/app/lib/actions";
+import { Code } from "@/prisma/types";
+import {
+  HandThumbUpIcon as LikedIcon,
+  TrashIcon,
+} from "@heroicons/react/24/solid";
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
+import { useState } from "react";
 
-export default function Preview({
-  question,
-  answer,
-  likes,
-}: {
-  question: string;
-  answer: string;
-  likes: number;
-}) {
+export default function Preview(code: Code) {
   const [isCopied, setIsCopied] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
-
   const handleCopyClick = async () => {
     try {
-      await navigator.clipboard.writeText(answer);
+      await navigator.clipboard.writeText(code.answer);
       setIsCopied(true);
     } catch (err) {
       console.error("Unable to copy text: ", err);
@@ -48,22 +40,22 @@ export default function Preview({
                     d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
                   />
                 </svg>
-                <span className="ml-2">{question}</span>
+                <span className="ml-2">{code.question}</span>
               </div>
               <div className="flex items-center justify-end mx-2 my-2">
                 <div
-                  onClick={() => {
-                    setIsLiked(!isLiked);
-                    isLiked ? setLikeCount(likes) : setLikeCount(likes + 1);
+                  onClick={async () => {
+                    if (confirm("Do you want to delete?")) {
+                      await DeleteCode(code.id);
+                    }
                   }}
                 >
-                  {isLiked ? (
-                    <LikedIcon className="h-6 w-6 " />
-                  ) : (
-                    <NotLikedIcon className="h-6 w-6 " />
-                  )}
+                  <TrashIcon className="h-6 w-6 mx-4" />
                 </div>
-                <span className="text-lg mr-4">{likeCount}</span>
+
+                <LikedIcon className="h-6 w-6 " />
+
+                <span className="text-lg mr-4">{code.likes}</span>
                 {isCopied ? (
                   "Copied !"
                 ) : (
@@ -89,7 +81,7 @@ export default function Preview({
             <pre
               className="overflow-auto  py-8  p-4 rounded-b-lg text-gray-50 bg-neutral-800 border-t border-slate-50"
               dangerouslySetInnerHTML={{
-                __html: Prism.highlight(answer, Prism.languages.js, "js"),
+                __html: Prism.highlight(code.answer, Prism.languages.js, "js"),
               }}
             />
           </div>
