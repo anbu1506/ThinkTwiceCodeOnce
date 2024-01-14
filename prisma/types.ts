@@ -4,9 +4,9 @@ export type User = {
 };
 
 export type Code = {
+  id: number;
   question: string;
   answer: string;
-  user: string;
-  id: number;
+  userId: string;
   likes: number;
 };

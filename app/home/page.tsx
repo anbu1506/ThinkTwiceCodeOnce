@@ -20,12 +20,6 @@ export default function Home({
       <div className="flex justify-center">
         <SearchPreview searchParams={searchParams}></SearchPreview>
       </div>
-
-      {/* <div className="flex justify-center mt-20 ">
-        <p className="w-96 md:w-1/2 font-bold text-2xl  text-center text-white p-2">
-          Latest questions 🔥
-        </p>
-      </div> */}
       <TopTen></TopTen>
     </div>
   );

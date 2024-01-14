@@ -14,7 +14,7 @@ import { UserCircleIcon } from "@heroicons/react/16/solid";
 const links = [
   { name: "home", path: "/home", icon: HomeIcon },
   { name: "upload", path: "/home/upload", icon: ArrowUpTrayIcon },
-  { name: "myUploads", path: "/home/myAccount", icon: UserCircleIcon },
+  { name: "myAccount", path: "/home/myAccount", icon: UserCircleIcon },
 ];
 
 export default function SideNav() {

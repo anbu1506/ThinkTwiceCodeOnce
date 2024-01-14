@@ -30,7 +30,9 @@
     "sequelize/config.js",
     "sequelize/orm.js",
     "sequelize/models.js",
-    "sequelize/config.js"
-, "app/ui/home/matrixRain.js", "auth.ts",   ],
+    "sequelize/config.js",
+    "app/ui/home/matrixRain.js",
+    "auth.ts"
+  ],
   "exclude": ["node_modules"]
 }

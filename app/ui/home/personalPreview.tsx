@@ -1,5 +1,5 @@
 "use client";
-import { DeleteCode } from "@/app/lib/actions";
+import { deleteCode } from "@/app/lib/actions";
 import { Code } from "@/prisma/types";
 import {
   HandThumbUpIcon as LikedIcon,
@@ -46,7 +46,7 @@ export default function Preview(code: Code) {
                 <div
                   onClick={async () => {
                     if (confirm("Do you want to delete?")) {
-                      await DeleteCode(code.id);
+                      await deleteCode(code.id);
                     }
                   }}
                 >

@@ -19,12 +19,6 @@ export default async function Profile() {
             className="rounded-full m-2"
           ></Image>
         </Link>
-        {/* <Link
-          href={"/home/myAccount"}
-          className="mx-2 text-slate-400 font-semibold"
-        >
-          {session.user.name}
-        </Link> */}
       </div>
     </>
   );

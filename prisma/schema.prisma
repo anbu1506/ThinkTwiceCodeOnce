@@ -7,22 +7,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model User {
-//   id            String    @id @default(cuid())
-//   name          String?
-//   email         String?   @unique
-//   emailVerified DateTime?
-//   image         String?
-//   createdAt     DateTime  @default(now())
-//   updatedAt     DateTime  @updatedAt
-// }
+
 
 model Code {
-  id       Int    @id @default(autoincrement())
+  id       Int    @id @default(autoincrement()) 
   question String @db.Text
   answer   String @db.Text
-  user     String
   likes    Int    @default(0)
+  createdBy User @relation("MyCodes",fields: [userId],references: [id])
+  userId   String 
+  likedUsers Liked[]  @relation("LikedCodes")
 }
 
 model User {
@@ -33,6 +27,16 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  MyCodes    Code[] @relation("MyCodes")
+  LikedCodes Liked[] @relation("LikedUsers")
+}
+
+model Liked{
+        id Int @id @default(autoincrement())
+        user User? @relation("LikedUsers",fields: [userId],references: [id])
+        userId String?
+        code Code @relation("LikedCodes",fields: [codeId],references: [id])
+        codeId Int
 }
 
 model Account {

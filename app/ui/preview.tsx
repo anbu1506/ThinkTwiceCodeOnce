@@ -5,34 +5,48 @@ import { HandThumbUpIcon as NotLikedIcon } from "@heroicons/react/24/outline";
 import { HandThumbUpIcon as LikedIcon } from "@heroicons/react/24/solid";
 import Prism from "prismjs";
 import "prismjs/themes/prism-tomorrow.css";
+import { getLikedCount, likeOrDislikeCode } from "../lib/actions";
+import { Code } from "@/prisma/types";
+import { isAlreadyLiked } from "../lib/actions";
+import { useSession } from "next-auth/react";
+import { MySession } from "../lib/mySession";
+import Image from "next/image";
+import { getProfileImage } from "../lib/actions";
 
-export default function Preview({
-  question,
-  answer,
-  likes,
-}: {
-  question: string;
-  answer: string;
-  likes: number;
-}) {
+export default function Preview(code: Code) {
+  const session = useSession();
+  const data = session.data as MySession;
   const [isCopied, setIsCopied] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
+  const [likeCount, setLikeCount] = useState(code.likes);
+  const [profileImage, setProfileImage] = useState("");
 
   const handleCopyClick = async () => {
     try {
-      await navigator.clipboard.writeText(answer);
+      await navigator.clipboard.writeText(code.answer);
       setIsCopied(true);
     } catch (err) {
       console.error("Unable to copy text: ", err);
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      if (session.status === "authenticated") {
+        isAlreadyLiked(data.user.id, code.id).then((res) => setIsLiked(res));
+        const likes = await getLikedCount(code.id);
+        setLikeCount(likes || 0);
+      }
+      const image = await getProfileImage(code.userId);
+      setProfileImage(image?.image || "");
+    })();
+  }, []);
   return (
     <>
       <div>
         <div className="flex justify-center items-center ">
           <div className=" w-[350px] md:w-1/2  rounded-lg shadow-lg border border-slate-50">
-            <div className="bg-neutral-700 p-2  text-white  flex rounded-t-lg justify-between  shadow-lg">
+            <div className="bg-neutral-700 p-2  text-white  flex flex-col  rounded-t-lg justify-between  shadow-lg">
               <div className="text-lg px-4 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -48,13 +62,29 @@ export default function Preview({
                     d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
                   />
                 </svg>
-                <span className="ml-2">{question}</span>
+                <span className="ml-2">{code.question}</span>
               </div>
               <div className="flex items-center justify-end mx-2 my-2">
+                <div>
+                  <Image
+                    src={profileImage}
+                    alt="profile"
+                    width={50}
+                    height={50}
+                    className="rounded-full mx-4"
+                  ></Image>
+                </div>
                 <div
-                  onClick={() => {
+                  onClick={async () => {
+                    if (session.status !== "authenticated") {
+                      alert("Please login to like the code");
+                      return;
+                    }
+                    isLiked
+                      ? setLikeCount(likeCount - 1)
+                      : setLikeCount(likeCount + 1);
+                    await likeOrDislikeCode(code.id, isLiked, data.user.id);
                     setIsLiked(!isLiked);
-                    isLiked ? setLikeCount(likes) : setLikeCount(likes + 1);
                   }}
                 >
                   {isLiked ? (
@@ -89,7 +119,7 @@ export default function Preview({
             <pre
               className="overflow-auto  py-8  p-4 rounded-b-lg text-gray-50 bg-neutral-800 border-t border-slate-50"
               dangerouslySetInnerHTML={{
-                __html: Prism.highlight(answer, Prism.languages.js, "js"),
+                __html: Prism.highlight(code.answer, Prism.languages.js, "js"),
               }}
             />
           </div>
