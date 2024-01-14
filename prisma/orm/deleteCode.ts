@@ -1,8 +1,6 @@
-import { where } from "sequelize";
 import prisma from "../prisma";
-import { number } from "zod";
 
-export default async function DeleteCodeById(id: number) {
+export default async function deleteCodeById(id: number) {
   try {
     await prisma.code.delete({
       where: {
@@ -10,6 +8,6 @@ export default async function DeleteCodeById(id: number) {
       },
     });
   } catch (error) {
-    console.log("Error deleting code by id");
+    console.log("Error deleting code by id", error);
   }
 }

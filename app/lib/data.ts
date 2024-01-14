@@ -1,5 +1,6 @@
 import prisma from "@/prisma/prisma";
 import getSession from "./getSession";
+import { unstable_noStore as noStore } from "next/cache";
 
 export default async function fetchSearchQuestions(query?: string) {
   let searchResults: { question: string; id: number }[] = [];
@@ -14,6 +15,7 @@ export default async function fetchSearchQuestions(query?: string) {
 }
 
 export async function fetchTopTen() {
+  noStore();
   try {
     const latestQuestions = await prisma.code.findMany({
       orderBy: {
@@ -28,6 +30,7 @@ export async function fetchTopTen() {
 }
 
 export async function fetchQuestion(id: string) {
+  noStore();
   try {
     const question = await prisma.code.findFirst({
       where: {
@@ -41,12 +44,13 @@ export async function fetchQuestion(id: string) {
   }
 }
 
-export async function fetchMyuploads() {
+export async function fetchUploads(userId: string) {
+  noStore();
   const session = await getSession();
   try {
     const myuploads = await prisma.code.findMany({
       where: {
-        user: session.user.id,
+        userId: userId,
       },
     });
 
@@ -56,12 +60,34 @@ export async function fetchMyuploads() {
   }
 }
 
-export async function getUploadsCount() {
-  const session = await getSession();
+export async function getUploadsCount(userId: string) {
   const count = await prisma.code.count({
     where: {
-      user: session.user.id,
+      userId: userId,
     },
   });
   return count;
+}
+
+export async function getUserLikes(userId: string) {
+  const likesCount = await prisma.code.aggregate({
+    where: {
+      userId: userId,
+    },
+    _sum: {
+      likes: true,
+    },
+  });
+
+  return likesCount._sum.likes || 0;
+}
+
+export async function getUser(userId: string) {
+  const user = await prisma.user.findFirst({
+    where: {
+      id: userId,
+    },
+  });
+
+  return user;
 }

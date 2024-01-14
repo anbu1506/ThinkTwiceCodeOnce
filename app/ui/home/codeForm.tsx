@@ -1,9 +1,9 @@
-import { UploadCode } from "@/app/lib/actions";
+import { uploadCode } from "@/app/lib/actions";
 
 export default function CodeForm() {
   return (
     <>
-      <form action={UploadCode}>
+      <form action={uploadCode}>
         <div className=" h-full w-full flex justify-center items-center ">
           <div className=" md:h-4/6 w-4/5 flex flex-col  items-center rounded-lg border border-slate-600 ">
             <div className="self-start	text-xl text-bold text-white my-4 mx-12 md:my-6 md:mx-16 ">

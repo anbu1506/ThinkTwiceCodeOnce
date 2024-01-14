@@ -1,4 +1,6 @@
-export interface MySession {
+import { Session } from "next-auth";
+
+export interface MySession extends Session {
   user: {
     id: string;
     name: string;
