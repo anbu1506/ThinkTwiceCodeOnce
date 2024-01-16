@@ -38,7 +38,7 @@ export default async function Inspect({ userId }: { userId: string }) {
           <p className="text-sm my-5 font-semibold">
             {(await getUserLikes(user.id)) || 0} likes
           </p>
-          {session.user.id == userId ? (
+          {session?.user.id == userId ? (
             <p>
               <Link href={"/home/manageUploads"}>
                 <PencilSquareIcon className="w-6 h-6 text-slate-400" /> Manage
