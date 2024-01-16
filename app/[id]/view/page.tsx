@@ -13,9 +13,11 @@ export default async function ViewPage({ params }: { params: { id: string } }) {
         <div className="my-40">
           {question && (
             <Preview
+              id={question.id}
               likes={question.likes}
               question={question.question}
               answer={question.answer}
+              userId={question.userId}
             />
           )}
         </div>

@@ -12,6 +12,8 @@ import { useSession } from "next-auth/react";
 import { MySession } from "../lib/mySession";
 import Image from "next/image";
 import { getProfileImage } from "../lib/actions";
+import { redirect } from "next/navigation";
+import Link from "next/link";
 
 export default function Preview(code: Code) {
   const session = useSession();
@@ -46,7 +48,7 @@ export default function Preview(code: Code) {
       <div>
         <div className="flex justify-center items-center ">
           <div className=" w-[350px] md:w-1/2  rounded-lg shadow-lg border border-slate-50">
-            <div className="bg-neutral-700 p-2  text-white  flex flex-col  rounded-t-lg justify-between  shadow-lg">
+            <div className="bg-neutral-700 p-2  text-white  flex flex-col md:flex-row  rounded-t-lg justify-between  shadow-lg">
               <div className="text-lg px-4 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +67,7 @@ export default function Preview(code: Code) {
                 <span className="ml-2">{code.question}</span>
               </div>
               <div className="flex items-center justify-end mx-2 my-2">
-                <div>
+                <Link href={`/${code.userId}/account`}>
                   <Image
                     src={profileImage}
                     alt="profile"
@@ -73,7 +75,7 @@ export default function Preview(code: Code) {
                     height={50}
                     className="rounded-full mx-4"
                   ></Image>
-                </div>
+                </Link>
                 <div
                   onClick={async () => {
                     if (session.status !== "authenticated") {
