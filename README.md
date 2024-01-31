@@ -12,7 +12,7 @@ Welcome to Student Code repository, a platform created for students to share and
 
 ## For contribution
 
-    if you wish to contribute , then
+- if you wish to contribute , then
 
 1. **Fork the Repository:** Click the "Fork" button to create your copy of the repository.
 
