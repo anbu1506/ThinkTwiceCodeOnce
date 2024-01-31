@@ -13,6 +13,7 @@ export default async function fetchSearchQuestions(query?: string) {
       where: {
         question: {
           contains: query,
+          mode: "insensitive",
         },
       },
     });
