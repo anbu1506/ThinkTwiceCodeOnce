@@ -4,6 +4,9 @@ import { unstable_noStore as noStore } from "next/cache";
 
 export default async function fetchSearchQuestions(query?: string) {
   let searchResults: { question: string; id: number }[] = [];
+  if (query == "" || query == " ") {
+    query = "  ";
+  }
   try {
     searchResults = await prisma.code.findMany({
       select: {
