@@ -10,6 +10,12 @@ Welcome to Student Code repository, a platform created for students to share and
 
 ## How to Share Your Code
 
+    [Student Code Share](https://code-repository-pi.vercel.app/)
+
+## For contribution
+
+    if you wish to contribute , then
+
 1. **Fork the Repository:** Click the "Fork" button to create your copy of the repository.
 
 2. **Clone Your Fork:** Clone the repository to your local machine using the following command:
