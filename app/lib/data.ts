@@ -5,9 +5,18 @@ import { unstable_noStore as noStore } from "next/cache";
 export default async function fetchSearchQuestions(query?: string) {
   let searchResults: { question: string; id: number }[] = [];
   try {
-    searchResults = await prisma.$queryRaw`
-    SELECT question , id FROM Code
-    WHERE question LIKE  CONCAT('%', ${query}, '%');`;
+    searchResults = await prisma.code.findMany({
+      select: {
+        question: true,
+        id: true,
+      },
+      where: {
+        question: {
+          contains: query,
+          mode: "insensitive",
+        },
+      },
+    });
   } catch (error) {
     console.error("Error fetching search results:", error);
   }
