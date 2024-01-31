@@ -3,6 +3,9 @@ import getSession from "./getSession";
 import { unstable_noStore as noStore } from "next/cache";
 
 export default async function fetchSearchQuestions(query?: string) {
+  if (!query) {
+    return [];
+  }
   let searchResults: { question: string; id: number }[] = [];
   try {
     searchResults = await prisma.code.findMany({
