@@ -66,8 +66,11 @@ export default function Preview(code: Code) {
                 </svg>
                 <span className="ml-2">{code.question}</span>
               </div>
-              <div className="flex items-center justify-end mx-2 my-2">
-                <Link href={`/${code.userId}/account`}>
+              <div className="flex  items-center justify-end my-2">
+                <Link
+                  href={`/${code.userId}/account`}
+                  className="w-[50px] mr-5"
+                >
                   <Image
                     src={profileImage}
                     alt="profile"
