@@ -30,6 +30,7 @@ export default function Search() {
             onChange={(e) => {
               handleSearch(e.target.value);
             }}
+            value={""}
           ></input>
         </div>
       </div>
