@@ -72,7 +72,8 @@ export default function Preview(code: Code) {
                   ></Image>
                 </Link>
                 <div
-                  onClick={async () => {
+                  onClick={async (e) => {
+                    e.stopPropagation();
                     if (session.status !== "authenticated") {
                       alert("Please login to like the code");
                       return;
@@ -80,7 +81,7 @@ export default function Preview(code: Code) {
                     isLiked
                       ? setLikeCount(likeCount - 1)
                       : setLikeCount(likeCount + 1);
-                    await likeOrDislikeCode(code.id, isLiked, data.user.id);
+                    likeOrDislikeCode(code.id, isLiked, data.user.id);
                     setIsLiked(!isLiked);
                   }}
                 >
