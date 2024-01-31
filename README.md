@@ -10,7 +10,7 @@ Welcome to Student Code repository, a platform created for students to share and
 
 ## How to Share Your Code
 
-    [Student Code Share](https://code-repository-pi.vercel.app/)
+    https://code-repository-pi.vercel.app/
 
 ## For contribution
 
