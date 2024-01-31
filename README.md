@@ -8,9 +8,7 @@ Welcome to Student Code repository, a platform created for students to share and
 
 - **Discover New Ideas:** Explore code snippets contributed by other students. Find solutions, get inspired, and learn from each other's work.
 
-## How to Share Your Code
-
-    https://code-repository-pi.vercel.app/
+  [visit my site](https://code-repository-pi.vercel.app/)
 
 ## For contribution
 
