@@ -1,13 +1,12 @@
 "use client";
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
 export default function Search() {
   const { replace } = useRouter();
   const path = usePathname();
-  const searchParams = useSearchParams();
 
   const handleSearch = useDebouncedCallback((value: string) => {
     const params = new URLSearchParams();
@@ -30,7 +29,6 @@ export default function Search() {
             onChange={(e) => {
               handleSearch(e.target.value);
             }}
-            value={""}
           ></input>
         </div>
       </div>
