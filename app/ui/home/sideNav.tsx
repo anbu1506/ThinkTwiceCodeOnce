@@ -6,7 +6,7 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import clsx from "clsx";
 import { signOut } from "next-auth/react";
 import { UserCircleIcon } from "@heroicons/react/16/solid";
@@ -49,6 +49,7 @@ export default function SideNav() {
           <button
             onClick={async () => {
               await signOut();
+              redirect("/");
             }}
             className="flex"
           >
