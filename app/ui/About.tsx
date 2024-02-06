@@ -46,8 +46,8 @@ export default function About() {
             <ol className="list-decimal col-span-2 flex justify-center items-center gap-5 flex-col">
               <li className="mb-2">
                 <strong>Post Your Brilliance:</strong> Create a post, give it a
-                catchy title, and share your code snippet with the world. Don't
-                forget to add relevant tags for easy discovery.
+                catchy title, and share your code snippet with the world.
+                Don&apos;t forget to add relevant tags for easy discovery.
               </li>
               <li className="mb-2">
                 <strong>Discover and Learn:</strong> Explore a diverse array of
@@ -58,8 +58,8 @@ export default function About() {
               <li className="mb-2">
                 <strong>Build Connections:</strong> Like, comment, and connect
                 with other learners and developers. Think Twice Code Once is
-                more than a platform; it's a community where collaboration and
-                support thrive.
+                more than a platform; it&apos;s a community where collaboration
+                and support thrive.
               </li>
             </ol>
             <div
@@ -96,14 +96,15 @@ export default function About() {
               </h2>
 
               <p>
-                "Ready to Think Twice, Code Once." Our platform embraces the
-                philosophy of thoughtful coding, encouraging developers to
-                carefully consider their approach before crafting elegant
-                solutions. Here, we value quality over quantity, emphasizing the
-                importance of clear thinking and efficient code. Join our
-                community of mindful coders, where every line is a reflection of
-                strategic thinking and coding excellence. Let's collaborate,
-                learn, and elevate our coding practices together!
+                &quot;Ready to Think Twice, Code Once&quot;. Our platform
+                embraces the philosophy of thoughtful coding, encouraging
+                developers to carefully consider their approach before crafting
+                elegant solutions. Here, we value quality over quantity,
+                emphasizing the importance of clear thinking and efficient code.
+                Join our community of mindful coders, where every line is a
+                reflection of strategic thinking and coding excellence.
+                Let&apos;s collaborate, learn, and elevate our coding practices
+                together!
               </p>
             </div>
           </div>
