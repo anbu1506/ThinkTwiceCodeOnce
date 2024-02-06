@@ -21,7 +21,13 @@ export default async function RootLayout({
     <html lang="en">
       <head></head>
       <body
-        className={inter.className + " antialiased font-normal bg-neutral-950"}
+        className={inter.className + " antialiased font-normal bg-neutral-950 "}
+        // style={{
+        //   backgroundImage: "url('img3.jpg')",
+        //   backgroundRepeat: "no-repeat",
+        // backgroundAttachment: "fixed",
+        //   backgroundSize: "cover",
+        // }}
       >
         <Provider session={session}>{children}</Provider>
       </body>
