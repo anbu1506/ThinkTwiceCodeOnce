@@ -11,8 +11,8 @@ export default function Home({
 }) {
   return (
     <div>
-      <div className="h-screen">
-        <div className="mt-40">
+      <div className="h-screen flex justify-center items-center flex-col">
+        <div className="">
           <h1 className="text-center my-6 text-slate-50 ">
             Welcome to the <strong>Think Twice Code Once</strong> platform.
           </h1>

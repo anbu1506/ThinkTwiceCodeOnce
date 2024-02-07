@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function About() {
   return (
-    <div className="font-mono">
-      <div className="text-white p-8 bg-gray-900 h-screen flex flex-col justify-evenly items-center">
+    <div className="">
+      <div className="text-white p-8 bg-gray-9500 h-screen flex flex-col justify-evenly items-center">
         <h1 className="text-3xl font-bold ">About Think Twice Code Once</h1>
         <div className="grid md:grid-cols-2 ">
           <div
@@ -22,7 +22,7 @@ export default function About() {
             className=" flex justify-center items-center"
             data-aos="zoom-in-left"
           >
-            <p className="font-mono text-lg">
+            <p className=" text-lg">
               Welcome to CodeShare, where learners unite to share, discover, and
               collaborate on code snippets. Our platform encourages effortless
               sharing, liking, and managing of code snippets, creating a vibrant
@@ -34,7 +34,7 @@ export default function About() {
         </div>
       </div>
       <div className="text-white">
-        <div className="bg-gray-800   flex flex-col justify-evenly items-center h-screen p-4 font-mono">
+        <div className="bg-gray-9500   flex flex-col justify-evenly items-center h-screen p-4">
           <h1 className="text-3xl font-bold">
             How to share code in Think Twice Code Once
           </h1>
@@ -76,7 +76,7 @@ export default function About() {
             </div>
           </div>
         </div>
-        <div className="md:h-screen flex flex-col justify-evenly items-center bg-gray-900 p-4">
+        <div className="md:h-screen flex flex-col justify-evenly items-center bg-gray-9500 p-4">
           <div className="grid md:grid-cols-2">
             <div
               className="flex justify-center items-center"
@@ -111,7 +111,6 @@ export default function About() {
 
           <h2 className="text-2xl font-bold mt-8 mb-4 self-start md:self-auto">
             Contact Us
-            <p className=" text-sm font-normal">github.com/anbu1506/</p>
           </h2>
 
           <a href="https://github.com/anbu1506">

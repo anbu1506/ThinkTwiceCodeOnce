@@ -24,7 +24,7 @@ export default function Search() {
         <div className="flex h-full justify-center items-center p-4">
           <MagnifyingGlassIcon className="text-white w-12 h-12  p-2 rounded-l-lg border border-slate-50 bg-neutral-950"></MagnifyingGlassIcon>
           <input
-            className="pl-2 w-96 h-12   text-slate-500 rounded-r-lg border border-slate-50  outline-none bg-neutral-950"
+            className="pl-2 md:w-96 h-12   text-slate-500 rounded-r-lg border border-slate-50  outline-none bg-neutral-950"
             placeholder="search..."
             onChange={(e) => {
               handleSearch(e.target.value);
