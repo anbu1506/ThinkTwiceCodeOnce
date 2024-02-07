@@ -22,12 +22,12 @@ export default async function RootLayout({
       <head></head>
       <body
         className={inter.className + " antialiased font-normal bg-neutral-950 "}
-        // style={{
-        //   backgroundImage: "url('img3.jpg')",
-        //   backgroundRepeat: "no-repeat",
-        // backgroundAttachment: "fixed",
-        //   backgroundSize: "cover",
-        // }}
+        style={{
+          backgroundImage: "url('bg1.jpg')",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+        }}
       >
         <Provider session={session}>{children}</Provider>
       </body>
