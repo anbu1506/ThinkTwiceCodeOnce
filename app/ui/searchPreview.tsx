@@ -12,13 +12,13 @@ export default async function SearchPreview({
       {questions?.length == 0 ? (
         <div className="text-slate-50">no results found</div>
       ) : (
-        <div className="    w-[350px] md:w-[432px]  rounded-lg mx-2 my-2 shadow-lg">
+        <div className=" bg-homeColor   w-[350px] md:w-[432px]  rounded-lg mx-2 my-2 shadow-lg">
           {questions.map(
             (question: { question: string; id: number }, index) => {
               return (
                 <div key={index} className="hover:shadow-lg">
                   <Link href={`/${question.id}/view`}>
-                    <div className="truncate px-4  py-4 text-slate-500">
+                    <div className="truncate px-4  py-4 text-gray-300">
                       {question.question}
                     </div>
                   </Link>

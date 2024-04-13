@@ -30,19 +30,21 @@ export default async function Inspect({ userId }: { userId: string }) {
           src={(await getProfileImage(user.id))?.image || " "}
           className="rounded-full m-2 md:h-[300px] md:w-[300px] h-[100px] w-[100px]"
         ></Image>
-        <div className="text-slate-100 mx-[10%] md:my-20">
-          <h1 className="text-2xl font-bold my-5">{user.name}</h1>
-          <p className="text-sm my-5 font-semibold">{user.email}</p>
-          <p className="text-sm my-5 font-semibold">
+        <div className="text-slate-700 mx-[10%] md:my-20">
+          <h1 className="text-2xl font-extrabold my-5">{user.name}</h1>
+          {
+            session?.user && <p className="text-md my-5 font-bold">{user.email}</p>
+          }
+          <p className="text-md my-5 font-bold">
             {(await getUploadsCount(user.id)) || 0} uploads
           </p>
-          <p className="text-sm my-5 font-semibold">
+          <p className="text-md my-5 font-bold">
             {(await getUserLikes(user.id)) || 0} likes
           </p>
           {session?.user.id == userId && (
             <p>
-              <Link href={"/home/manageUploads"}>
-                <PencilSquareIcon className="w-6 h-6 text-slate-400" /> Manage
+              <Link href={"/home/manageUploads"} className=" font-bold text-slate-700">
+                <PencilSquareIcon className="w-6 h-6 text-slate-700" /> Manage
                 Uploads
               </Link>
             </p>
@@ -50,9 +52,6 @@ export default async function Inspect({ userId }: { userId: string }) {
         </div>
       </div>
       <div className="md:w-1/2 p-2 flex flex-col">
-        <div className="">
-          <p className="text-white font-bold">All uploads</p>
-        </div>
         {uploads?.map((upload, index) => {
           return (
             <div
@@ -60,10 +59,10 @@ export default async function Inspect({ userId }: { userId: string }) {
               className="p-5 my-5 mx-2 border-b border-slate-500 md:w-1/2"
             >
               <Link href={`/${upload.id}/view`}>
-                <p className="text-blue-700">{upload.question}</p>
+                <p className="text-blue-400 font-semibold">{upload.question}</p>
               </Link>
-              <p className="text-white m-2 flex">
-                <HandThumbUpIcon className="w-6 h-6 mx-2 text-slate-400" />
+              <p className="text-slate-700 m-2 flex">
+                <HandThumbUpIcon className="w-6 h-6 mx-2 text-slate-400 font-semibold" />
                 {upload.likes}
               </p>
             </div>
