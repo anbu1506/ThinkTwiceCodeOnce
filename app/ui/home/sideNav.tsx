@@ -29,9 +29,9 @@ export default function SideNav() {
             <Link
               key={index}
               className={clsx(
-                "flex items-center md:p-2 m-2 text-gray-500 font-semibold",
+                "flex items-center md:p-2 m-2 text-blue-400 font-semibold",
                 {
-                  "text-black md:text-white font-bold md:bg-neutral-950 md:border-none border p-1 bg-blue-100 rounded-full":
+                  " md:text-white font-bold md:bg-homeColor md:border-none border p-1 bg-blue-100 rounded-full md:rounded-none":
                     path === link.path,
                 }
               )}
@@ -44,14 +44,14 @@ export default function SideNav() {
         })}
         <form
           action=""
-          className="flex items-center mx-2 text-gray-500 font-semibold"
+          className="flex items-center mx-2 text-blue-500 font-semibold"
         >
           <button
             onClick={async () => {
               await signOut();
               redirect("/");
             }}
-            className="flex"
+            className="flex "
           >
             <PowerIcon className="w-6 h-6 " />
             <div>Logout</div>

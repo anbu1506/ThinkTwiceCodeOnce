@@ -6,7 +6,7 @@ export default async function ViewPage({ params }: { params: { id: string } }) {
   const question = await fetchQuestion(params.id);
   return (
     <>
-      <div className=" font-bold  text-2xl   md: text-center  fixed top-0 right-0 left-0   py-4 shadow-lg text-white bg-neutral-950">
+      <div className=" font-bold  text-2xl   md: text-center  fixed top-0 right-0 left-0   py-4 shadow-lg text-white bg-homeColor">
         <Link href={"/home"}>Think Twice Code Once</Link>
       </div>
       {
