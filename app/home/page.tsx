@@ -38,6 +38,8 @@ export default function Home({
             <SearchPreview searchParams={searchParams}></SearchPreview>
           </div>
         </div>
+        <div className="h-1/2">
+        </div>
       </div>
       <TopTen></TopTen>
     </>

@@ -6,7 +6,7 @@ export default async function Upload() {
   return (
     <>
       <div className="mt-52"></div>
-      <div className="text-white text-xl font-semibold my-10 w-4/5 mx-[10%]">
+      <div className="text-slate-700 text-xl font-semibold my-10 w-4/5 mx-[10%]">
         {session.user.name} / upload
       </div>
       <div>
