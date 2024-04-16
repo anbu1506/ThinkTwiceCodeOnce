@@ -50,7 +50,7 @@ export default async function Root({
           <div className="h-1/2 md:w-1/2 md:h-full">
             <img
               className="h-full w-full"
-              src="screen.png"
+              src="screen.jpg"
               alt="network pf devs"
             />
           </div>

@@ -21,7 +21,7 @@ export default async function RootLayout({
     <html lang="en">
       <head></head>
       <body
-        className={inter.className + " antialiased"}
+        className={inter.className + " antialiased bg-gray-50"}
       >
         <Provider session={session}>{children}</Provider>
       </body>
