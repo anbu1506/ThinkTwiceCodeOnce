@@ -125,8 +125,8 @@ export default function Preview(code: Code) {
             />
             <div>
               <CommentSection
-                // comments={comments}
-                authorId={code.userId}
+                // // comments={comments}
+                // authorId={code.userId}
                 codeId={code.id}
               ></CommentSection>
             </div>

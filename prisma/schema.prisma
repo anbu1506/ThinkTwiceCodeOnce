@@ -46,7 +46,7 @@ model Comment{
     content String @db.Text
     time String
     codeId Int
-    CommentedTo Code @relation("ThisComments",fields: [codeId],references: [id])
+    CommentedTo Code @relation("ThisComments",fields: [codeId],references: [id],onDelete: Cascade)
     replies Replies[] @relation("ThisReplies")
 }
 
@@ -56,7 +56,7 @@ model Replies{
     time String
     content String @db.Text
     commentId Int
-    RepliedTo Comment @relation("ThisReplies",fields: [commentId],references: [id])
+    RepliedTo Comment @relation("ThisReplies",fields: [commentId],references: [id],onDelete: Cascade)
 }
 
 model Account {
