@@ -1,6 +1,7 @@
-
 import { useEffect, useState } from "react";
-import { getComments } from "../lib/actions";
+import { addComment, addReply, getComments } from "../lib/actions";
+import { useSession } from "next-auth/react";
+import { MySession } from "../lib/mySession";
 // import { addComment } from "../lib/actions";
 
 // export const comments = [
@@ -50,7 +51,7 @@ export type Replies = {
   time: string;
   content: string;
 };
-const Comment = ({ Comment }: { Comment: Comments }) => {
+const Comment = ({ Comment , submitCallback }: { Comment: Comments  , submitCallback:()=>void}) => {
   const [doComment, setDoComment] = useState<Boolean>(false);
   const [comment, setComment] = useState<string>("");
   const [replies, setreplies] = useState<Replies[]>(Comment.replies);
@@ -98,8 +99,7 @@ const Comment = ({ Comment }: { Comment: Comments }) => {
         <>
           <textarea
             color="primary"
-
-          className="mt-2 mb-2 outline-none rounded-lg  p-4 bg-gray-300 text-gray-800 w-full"
+            className="mt-2 mb-2 outline-none rounded-lg  p-4 bg-gray-300 text-gray-800 w-full"
             placeholder="Enter your description"
             rows={3}
             onChange={(e) => {
@@ -109,18 +109,8 @@ const Comment = ({ Comment }: { Comment: Comments }) => {
           <div className="p-2">
             <button
               className="mx-4 bg-gray-700 text-white rounded-md px-4 py-2"
-              onClick={() => {
-                setreplies((prev) => {
-                  return [
-                    ...prev,
-                    {
-                      author: "hunter",
-                      id: 1,
-                      content: comment,
-                      time: "march 15,2023",
-                    },
-                  ];
-                });
+              onClick={async() => {
+                comment && await addReply(Comment.id,comment) &&submitCallback();
                 setDoComment(false);
               }}
             >
@@ -169,24 +159,30 @@ const Comment = ({ Comment }: { Comment: Comments }) => {
     </div>
   );
 };
-export default function CommentSection({authorId , codeId }: {authorId:string,codeId:number }) {
+export default function CommentSection({ codeId }: { codeId: number }) {
   const [comment, setComment] = useState<string>("");
   const [commentsState, setCommentsState] = useState<Comments[]>([]);
-  useEffect(()=>{
-      (async ()=>{
-        const comments = await getComments(codeId);
+
+  const submitCallback = ()=>{
+    getComments(codeId).then((data) => {
+      setCommentsState(data);
+    });
+  }
+  useEffect(() => {
+    (async () => {
+      const comments = await getComments(codeId);
       setCommentsState(comments);
-       })()
-  },[])
+    })();
+  }, []);
   return (
     <div>
       {commentsState.map((comment, index) => (
-        <Comment Comment={comment} />
+        <Comment Comment={comment} submitCallback={submitCallback} />
       ))}
       <div className="mt-10 p-2">
-
-      <label htmlFor="commentArea"
-       className="text-gray-700 font-bold">Add your comment</label>
+        <label htmlFor="commentArea" className="text-gray-700 font-bold">
+          Add your comment
+        </label>
         <textarea
           id="commentArea"
           className=" mb-2 outline-none rounded-lg bg-gray-300 p-4 text-gray-700 w-full"
@@ -197,25 +193,14 @@ export default function CommentSection({authorId , codeId }: {authorId:string,co
           rows={5}
           // cols={45}
           value={comment}
-        >
-        </textarea>
+        ></textarea>
         <button
           onClick={async () => {
-            comment 
-            // && await addComment(authorId,codeId,comment,"march 23")
-            comment &&
-              setCommentsState((prev) => {
-                return [
-                  ...prev,
-                  {
-                    author: "hunter",
-                    id: 2,
-                    content: comment,
-                    time: "march 15,2023",
-                    replies: [],
-                  },
-                ];
-              });
+            comment
+            && await addComment(codeId,comment)
+             &&
+            submitCallback()
+
             setComment("");
           }}
           className="mx-4 bg-gray-700 px-3 py-2 text-white rounded-lg"
