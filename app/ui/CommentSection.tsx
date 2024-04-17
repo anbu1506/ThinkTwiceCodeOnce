@@ -1,59 +1,59 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getComments } from "../lib/actions";
 // import { addComment } from "../lib/actions";
 
-export const comments = [
-  {
-    id: "1",
-    author: "John Doe",
-    time: "march 15 ,2023",
-    content:
-      "I really enjoyed reading this article! The insights provided were enlightening and thought-provoking. It's great to see such well-researched content. Looking forward to more from this author.",
-    children: [
-      {
-        author: "Jane Smith",
-        id: "2",
-        time: "march 15 ,2023",
-        content:
-          "Thanks, John! I'm glad you found it interesting. Your feedback means a lot. Let me know if you have any questions or further thoughts on the topic.",
-      },
-    ],
-  },
-  {
-    author: "Alice Johnson",
-    id: "3",
-    time: "march 15 ,2023",
-    content:
-      "This is a thought-provoking piece. The author raises important questions that challenge conventional wisdom. I appreciate the depth of analysis presented here. It's definitely worth further discussion.",
-    children: [],
-  },
-  {
-    author: "Bob Thompson",
-    id: "4",
-    time: "march 15 ,2023",
-    content:
-      "I disagree with some points, but overall a good read. The arguments presented are compelling, although I have reservations about certain conclusions. It's refreshing to engage with diverse perspectives.",
-    children: [],
-  },
-];
+// export const comments = [
+//   {
+//     id: "1",
+//     author: "John Doe",
+//     time: "march 15 ,2023",
+//     content:
+//       "I really enjoyed reading this article! The insights provided were enlightening and thought-provoking. It's great to see such well-researched content. Looking forward to more from this author.",
+//     replies: [
+//       {
+//         author: "Jane Smith",
+//         id: "2",
+//         time: "march 15 ,2023",
+//         content:
+//           "Thanks, John! I'm glad you found it interesting. Your feedback means a lot. Let me know if you have any questions or further thoughts on the topic.",
+//       },
+//     ],
+//   },
+//   {
+//     author: "Alice Johnson",
+//     id: "3",
+//     time: "march 15 ,2023",
+//     content:
+//       "This is a thought-provoking piece. The author raises important questions that challenge conventional wisdom. I appreciate the depth of analysis presented here. It's definitely worth further discussion.",
+//     replies: [],
+//   },
+//   {
+//     author: "Bob Thompson",
+//     id: "4",
+//     time: "march 15 ,2023",
+//     content:
+//       "I disagree with some points, but overall a good read. The arguments presented are compelling, although I have reservations about certain conclusions. It's refreshing to engage with diverse perspectives.",
+//     replies: [],
+//   },
+// ];
 export type Comments = {
   author: string;
-  id: string;
+  id: number;
   time: string;
   content: string;
-  children: Replies[];
+  replies: Replies[];
 };
 export type Replies = {
   author: string;
-  id: string;
+  id: number;
   time: string;
   content: string;
 };
 const Comment = ({ Comment }: { Comment: Comments }) => {
   const [doComment, setDoComment] = useState<Boolean>(false);
   const [comment, setComment] = useState<string>("");
-  const [children, setChildren] = useState<Replies[]>(Comment.children);
-  console.log(comment)
+  const [replies, setreplies] = useState<Replies[]>(Comment.replies);
   return (
     <div className=" p-4 mb-4 border-l-2 border-gray-300 text-gray-700">
       <div className="text-md font-semibold text-blue-500 flex items-center">
@@ -110,15 +110,14 @@ const Comment = ({ Comment }: { Comment: Comments }) => {
             <button
               className="mx-4 bg-gray-700 text-white rounded-md px-4 py-2"
               onClick={() => {
-                setChildren((prev) => {
+                setreplies((prev) => {
                   return [
                     ...prev,
                     {
                       author: "hunter",
-                      id: "65",
+                      id: 1,
                       content: comment,
                       time: "march 15,2023",
-                      children: [],
                     },
                   ];
                 });
@@ -139,9 +138,9 @@ const Comment = ({ Comment }: { Comment: Comments }) => {
           </div>
         </>
       )}
-      {children && children.length > 0 && (
+      {replies && replies.length > 0 && (
         <div className="ml-4 mt-2">
-          {children.map((child, index) => (
+          {replies.map((child, index) => (
             <div key={index}>
               <div className="text-md font-semibold text-blue-500 flex items-center">
                 {" "}
@@ -170,10 +169,15 @@ const Comment = ({ Comment }: { Comment: Comments }) => {
     </div>
   );
 };
-export default function CommentSection({ comments ,authorId , codeId }: { comments: Comments[] ,authorId:string,codeId:number }) {
+export default function CommentSection({authorId , codeId }: {authorId:string,codeId:number }) {
   const [comment, setComment] = useState<string>("");
-  const [commentsState, setCommentsState] = useState<Comments[]>(comments);
-  console.log(comments);
+  const [commentsState, setCommentsState] = useState<Comments[]>([]);
+  useEffect(()=>{
+      (async ()=>{
+        const comments = await getComments(codeId);
+      setCommentsState(comments);
+       })()
+  },[])
   return (
     <div>
       {commentsState.map((comment, index) => (
@@ -205,10 +209,10 @@ export default function CommentSection({ comments ,authorId , codeId }: { commen
                   ...prev,
                   {
                     author: "hunter",
-                    id: "65",
+                    id: 2,
                     content: comment,
                     time: "march 15,2023",
-                    children: [],
+                    replies: [],
                   },
                 ];
               });
