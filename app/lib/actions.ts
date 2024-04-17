@@ -51,7 +51,7 @@ export async function deleteCode(id: number) {
       },
     });
     if (likeId != null) {
-      const arr = likeId.map((x) => x.id);
+      const arr = likeId.map((x:any) => x.id);
       await prisma.liked.deleteMany({
         where: {
           id: {
@@ -155,4 +155,28 @@ export async function getProfileImage(userId: string) {
     },
   });
   return profileImage;
+}
+
+
+export async function getComments(codeId:number) {
+  const comments = await prisma.comment.findMany({
+    where: {
+      codeId: codeId,
+    },
+    orderBy: {
+      id: "desc",
+    },
+    include:{
+      replies:true
+    }
+  })
+
+  console.log(comments);
+
+  return comments;
+  
+}
+
+export async function addComment(author:string,codeId:number,comment:string,time:string) {
+  
 }

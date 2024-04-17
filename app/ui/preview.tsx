@@ -15,7 +15,7 @@ import Image from "next/image";
 import { getProfileImage } from "../lib/actions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import CommentSection, { comments } from "./CommentSection";
+import CommentSection from "./CommentSection";
 
 export default function Preview(code: Code) {
   const session = useSession();
@@ -125,7 +125,7 @@ export default function Preview(code: Code) {
             />
             <div>
               <CommentSection
-                comments={comments}
+                // comments={comments}
                 authorId={code.userId}
                 codeId={code.id}
               ></CommentSection>
