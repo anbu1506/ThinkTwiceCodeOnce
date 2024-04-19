@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { HandThumbUpIcon, PencilSquareIcon } from "@heroicons/react/24/solid";
 import getSession from "../lib/getSession";
+import { notFound } from "next/navigation";
 
 export default async function Inspect({ userId }: { userId: string }) {
   const session = await getSession();
@@ -19,6 +20,10 @@ export default async function Inspect({ userId }: { userId: string }) {
     image: "",
   };
   const uploads = await fetchUploads(user.id);
+
+  if(!user || !uploads){
+    notFound()
+  }
 
   return (
     <div className="flex flex-col md:flex-row md:h-full w-full">
