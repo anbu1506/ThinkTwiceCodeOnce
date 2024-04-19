@@ -5,12 +5,8 @@ export default async function Upload() {
   const session = await getSession();
   return (
     <>
-      <div className="mt-52"></div>
-      <div className="text-slate-700 text-xl font-semibold my-10 w-4/5 mx-[10%]">
-        {session.user.name} / upload
-      </div>
-      <div>
-        <CodeForm />
+      <div className="flex items-center justify-center h-full pt-20">
+        <CodeForm Name={session.user.name}/>
       </div>
     </>
   );

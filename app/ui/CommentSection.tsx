@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { addComment, addReply, getComments } from "../lib/actions";
 import { useSession } from "next-auth/react";
 import { MySession } from "../lib/mySession";
+import { useRouter } from "next/navigation";
 // import { addComment } from "../lib/actions";
 
 // export const comments = [
@@ -54,7 +55,7 @@ export type Replies = {
 const Comment = ({ Comment , submitCallback }: { Comment: Comments  , submitCallback:()=>void}) => {
   const [doComment, setDoComment] = useState<Boolean>(false);
   const [comment, setComment] = useState<string>("");
-  const [replies, setreplies] = useState<Replies[]>(Comment.replies);
+  // const [replies, setreplies] = useState<Replies[]>(Comment.replies);
   return (
     <div className=" p-4 mb-4 border-l-2 border-gray-300 text-gray-700">
       <div className="text-md font-semibold text-blue-500 flex items-center">
@@ -74,7 +75,7 @@ const Comment = ({ Comment , submitCallback }: { Comment: Comments  , submitCall
         {Comment.author}{" "}
         <span className=" text-gray-700 mx-2 font-normal">{Comment.time}</span>
       </div>
-      <p className="p-2">{Comment.content}</p>
+      <pre className="p-2 overflow-auto">{Comment.content}</pre>
       <p
         className="flex text-blue-400"
         onClick={() => {
@@ -110,7 +111,8 @@ const Comment = ({ Comment , submitCallback }: { Comment: Comments  , submitCall
             <button
               className="mx-4 bg-gray-700 text-white rounded-md px-4 py-2"
               onClick={async() => {
-                comment && await addReply(Comment.id,comment) &&submitCallback();
+                comment && await addReply(Comment.id,comment) 
+                 && submitCallback();
                 setDoComment(false);
               }}
             >
@@ -128,9 +130,9 @@ const Comment = ({ Comment , submitCallback }: { Comment: Comments  , submitCall
           </div>
         </>
       )}
-      {replies && replies.length > 0 && (
+      {Comment.replies && Comment.replies.length > 0 && (
         <div className="ml-4 mt-2">
-          {replies.map((child, index) => (
+          {Comment.replies.map((child, index) => (
             <div key={index}>
               <div className="text-md font-semibold text-blue-500 flex items-center">
                 {" "}
@@ -151,7 +153,7 @@ const Comment = ({ Comment , submitCallback }: { Comment: Comments  , submitCall
                   {child.time}
                 </span>
               </div>
-              <p className="p-2">{child.content}</p>
+              <pre className="p-2 overflow-auto">{child.content}</pre>
             </div>
           ))}
         </div>
@@ -160,6 +162,7 @@ const Comment = ({ Comment , submitCallback }: { Comment: Comments  , submitCall
   );
 };
 export default function CommentSection({ codeId }: { codeId: number }) {
+
   const [comment, setComment] = useState<string>("");
   const [commentsState, setCommentsState] = useState<Comments[]>([]);
 
@@ -177,7 +180,7 @@ export default function CommentSection({ codeId }: { codeId: number }) {
   return (
     <div>
       {commentsState.map((comment, index) => (
-        <Comment Comment={comment} submitCallback={submitCallback} />
+        <Comment key={index} Comment={comment} submitCallback={submitCallback} />
       ))}
       <div className="mt-10 p-2">
         <label htmlFor="commentArea" className="text-gray-700 font-bold">
@@ -198,8 +201,9 @@ export default function CommentSection({ codeId }: { codeId: number }) {
           onClick={async () => {
             comment
             && await addComment(codeId,comment)
-             &&
+
             submitCallback()
+            
 
             setComment("");
           }}

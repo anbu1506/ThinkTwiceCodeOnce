@@ -1,14 +1,13 @@
 "use server";
 
-import z, { date } from "zod";
-import { Code, User } from "@/prisma/types";
+import { Code } from "@/prisma/types";
 // import { createUser } from "@/prisma/orm/createUser"
 import { createCode } from "@/prisma/orm/createCode";
 import { redirect } from "next/navigation";
 import getSession from "./getSession";
 import prisma from "@/prisma/prisma";
 import deleteCodeById from "@/prisma/orm/deleteCode";
-import { unstable_noStore as noStore, revalidatePath } from "next/cache";
+import { unstable_noStore as noStore } from "next/cache";
 
 async function validateUser() {
   const session = await getSession();
@@ -16,6 +15,28 @@ async function validateUser() {
   if (!session?.user) {
     redirect("/api/auth/signin");
   }
+}
+
+export async function editCode(formdata: FormData) {
+  noStore();
+  await validateUser();
+
+  const data = {
+    question: formdata.get("question"),
+    answer: formdata.get("answer"),
+  };
+  try {
+    await prisma.code.update({
+      where: {
+        id: parseInt(formdata.get("codeId") as string),
+      },
+      data: data as Code,
+    });
+  } catch (error) {
+    console.log("Error editing code");
+  }
+
+  redirect("/home/myAccount");
 }
 
 export async function uploadCode(formdata: FormData) {
@@ -187,6 +208,7 @@ export async function getProfileImage(userId: string) {
 }
 
 export async function getComments(codeId: number) {
+  noStore()
   const comments = await prisma.comment.findMany({
     where: {
       codeId: codeId,
@@ -199,14 +221,13 @@ export async function getComments(codeId: number) {
     },
   });
 
-  console.log(comments);
 
   return comments;
 }
 
 export async function addComment(codeId: number, comment: string) {
+  noStore()
   const session = await getSession();
-  console.log(session);
   if (!session?.user) {
     redirect("/api/auth/signin");
   }
@@ -228,8 +249,8 @@ export async function addComment(codeId: number, comment: string) {
   
 }
 export async function addReply(commentId: number, reply: string) {
+  noStore()
   const session = await getSession();
-  console.log(session);
   if (!session?.user) {
     redirect("/api/auth/signin");
   }

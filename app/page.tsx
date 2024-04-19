@@ -1,53 +1,43 @@
-import Link from "next/link";
-import Search from "./ui/search";
-import SearchPreview from "./ui/searchPreview";
 import { redirectIfAuthenticated } from "./lib/getUserAuth";
 import LoginBtn, { GithubLogin, JoinCommunity } from "./ui/loginBtn";
 import BottomBar from "./ui/BottomBar";
+import NavMenu from "./ui/navMenu";
+import SearchHome from "./ui/searchHome";
+import SearchPreview from "./ui/searchPreview";
 export default async function Root({
   searchParams,
 }: {
   searchParams: { search: string };
 }) {
   await redirectIfAuthenticated();
-
   return (
     <>
       <div className="h-screen bg-homeColor p-4">
         <div className="nav flex justify-between">
-          <div className="flex justify-around w-[30%] items-center font-semibold">
-            <a className="text-white" href="">
-              About
-            </a>
-            <a className="text-white" href="">
-              roducts
-            </a>
-            <a className="text-white" href="">
-              Teams
-            </a>
-          </div>
-          <input
-            className="bg-white px-3 py-2 outline-none rounded-md w-[30%]"
-            placeholder="search"
-            type="text"
-          />
+          <NavMenu></NavMenu>
+          <SearchHome></SearchHome>
           <LoginBtn></LoginBtn>
         </div>
+        {searchParams.search && 
+        <div className="fixed top-24 left-0 w-full h-full flex justify-center">
+          <SearchPreview searchParams={searchParams}></SearchPreview>
+        </div>
+        }
         <div className="py-5 px-3 h-[80%] mx-10 my-10 flex flex-col md:flex-row">
           <div className="h-1/2 md:w-1/2 md:h-full flex flex-col items-center justify-around">
-            <h1 className="text-xl md:text-7xl md:leading-normal font-extrabold text-white">
+            <h1 className="text-xl md:text-7xl md:leading-normal font-extrabold text-white p-2">
               Every <span className="text-blue-500">Developer </span>Has A Tab
               Open To
               <span className="text-blue-500">Think Twice Code Once</span>{" "}
               Platform.
             </h1>
-            <p className="text-gray-400 self-start">
+            <p className="text-gray-400 self-start p-2">
               Easily Create , Organize, And Discover Knowledge through Your
               Entire Learnig Journey
             </p>
             <GithubLogin></GithubLogin>
           </div>
-          <div className="h-1/2 md:w-1/2 md:h-full">
+          <div className="h-1/2 md:w-1/2 md:h-full  self-start py-6">
             <img
               className="h-full w-full"
               src="screen.jpg"
@@ -65,7 +55,7 @@ export default async function Root({
             alt="network of devs"
           />
         </div>
-        <div className="flex items-center justify-center mb-10">
+        <div className="flex items-center justify-center mb-10" id="About">
           <div className="h-3/4 w-3/5 flex items-center justify-around flex-col">
             <h1 className="text-blue-500 font-extrabold text-3xl leading-normal self-start">
               Find The Best Answer To Your Technical Question, Help Others
