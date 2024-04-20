@@ -4,6 +4,7 @@ import BottomBar from "./ui/BottomBar";
 import NavMenu from "./ui/navMenu";
 import SearchHome from "./ui/searchHome";
 import SearchPreview from "./ui/searchPreview";
+import Image from "next/image";
 export default async function Root({
   searchParams,
 }: {
@@ -18,11 +19,11 @@ export default async function Root({
           <SearchHome></SearchHome>
           <LoginBtn></LoginBtn>
         </div>
-        {searchParams.search && 
-        <div className="fixed top-24 left-0 w-full h-full flex justify-center">
-          <SearchPreview searchParams={searchParams}></SearchPreview>
-        </div>
-        }
+        {searchParams.search && (
+          <div className="fixed top-24 left-0 w-full h-full flex justify-center">
+            <SearchPreview searchParams={searchParams}></SearchPreview>
+          </div>
+        )}
         <div className="py-5 px-3 h-[80%] mx-10 my-10 flex flex-col md:flex-row">
           <div className="h-1/2 md:w-1/2 md:h-full flex flex-col items-center justify-around">
             <h1 className="text-xl md:text-7xl md:leading-normal font-extrabold text-white p-2">
@@ -38,18 +39,18 @@ export default async function Root({
             <GithubLogin></GithubLogin>
           </div>
           <div className="h-1/2 md:w-1/2 md:h-full  self-start py-6">
-            <img
+            <Image
               className="h-full w-full"
               src="screen.jpg"
               alt="network pf devs"
-            />
+            ></Image>
           </div>
         </div>
       </div>
 
       <div className="md:h-screen grid md:grid-cols-2 md:grid-rows-2">
         <div className="flex items-center justify-center">
-          <img
+          <Image
             className="h-full w-4/2 rounded-full p-10"
             src="net.jpeg"
             alt="network of devs"
@@ -84,7 +85,7 @@ export default async function Root({
           </div>
         </div>
         <div className="flex items-center justify-center">
-          <img
+          <Image
             className="h-full w-4/2 rounded-full p-20"
             src="net.jpeg"
             alt="network of devs"
@@ -96,7 +97,7 @@ export default async function Root({
         <button className="h-80 w-60 m-4 border border-blue-950 px-4 py-2 text-homeColor hover:bg-homeColor hover:text-white hover:h-72 hover:w-72 font-semibold rounded-md">
           <div></div>
           <p>
-            Express your appreciation with a simple click! Use the 'Like' button
+            Express your appreciation with a simple click! Use the &apos;Like&apos; button
             to show support for posts, comments, and discussions that resonate
             with you. Spread positivity and encourage engagement by
             acknowledging valuable contributions from fellow users.
@@ -118,7 +119,7 @@ export default async function Root({
           <div></div>
           <p>
             Spread the word and amplify the reach of interesting content with
-            the 'Share' option! Share posts, articles, or discussions that you
+            the &apos;Share&apos; option! Share posts, articles, or discussions that you
             find valuable or thought-provoking with your friends, followers, or
             colleagues. Help create a ripple effect of engagement by sharing
             content that inspires you.
@@ -129,7 +130,7 @@ export default async function Root({
           <div></div>
           <p>
             Join the dialogue and add your voice to the conversation! Use the
-            'Comment' option to share your thoughts, ask questions, or provide
+            &apos;Comment&apos; option to share your thoughts, ask questions, or provide
             feedback on posts and discussions. Engage with fellow users, offer
             insights, and contribute to a dynamic exchange of ideas within the
             community.
