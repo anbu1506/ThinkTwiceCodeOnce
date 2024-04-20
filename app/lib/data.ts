@@ -58,7 +58,6 @@ export async function fetchQuestion(id: string) {
 
 export async function fetchUploads(userId: string) {
   noStore();
-  const session = await getSession();
   try {
     const myuploads = await prisma.code.findMany({
       where: {
@@ -103,3 +102,4 @@ export async function getUser(userId: string) {
 
   return user;
 }
+

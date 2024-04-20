@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 export default async function getUserAuth() {
   const session = await getServerSession(authConfig);
   const user = session?.user;
-  if (!user) redirect("/");
+  if (!user) redirect("/api/auth/signin");
 }
 
 export async function redirectIfAuthenticated() {

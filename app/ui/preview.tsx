@@ -5,7 +5,7 @@ import { HandThumbUpIcon as NotLikedIcon } from "@heroicons/react/24/outline";
 import { HandThumbUpIcon as LikedIcon } from "@heroicons/react/24/solid";
 import { CommandLineIcon } from "@heroicons/react/24/outline";
 import Prism from "prismjs";
-import "prismjs/themes/prism-tomorrow.css";
+import "prismjs/themes/prism-solarizedlight.css";
 import { getLikedCount, likeOrDislikeCode } from "../lib/actions";
 import { Code } from "@/prisma/types";
 import { isAlreadyLiked } from "../lib/actions";
@@ -15,6 +15,7 @@ import Image from "next/image";
 import { getProfileImage } from "../lib/actions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import CommentSection from "./CommentSection";
 
 export default function Preview(code: Code) {
   const session = useSession();
@@ -46,17 +47,16 @@ export default function Preview(code: Code) {
   }, []);
   return (
     <>
-      <div>
+      <div className="font-mono">
         <div className="flex justify-center items-center ">
           <div className=" w-[350px] md:w-1/2  rounded-lg shadow-lg border border-slate-50">
-            <div className="bg-neutral-700 p-2  text-white  flex flex-col md:flex-row  rounded-t-lg justify-between  shadow-lg">
+            <div className="bg-neutral-600 p-2  text-white  flex  flex-row  rounded-t-lg justify-between  shadow-lg">
               <div className="text-lg px-4 flex items-center">
                 <CommandLineIcon
-                  height={50}
-                  width={50}
+                  height={30}
+                  width={30}
                   className="mr-4"
                 ></CommandLineIcon>
-                <span className="ml-2">{code.question}</span>
               </div>
               <div className="flex  items-center justify-end my-2">
                 <Link
@@ -113,13 +113,23 @@ export default function Preview(code: Code) {
                 )}
               </div>
             </div>
+            <pre className="overflow-auto p-7 bg-gray-100  font-extrabold text-gray-700">
+              {code.question}
+            </pre>
             {/* <pre className="overflow-auto  py-8  p-4 rounded-b-lg  bg-white">{answer}</pre> */}
             <pre
-              className="overflow-auto  py-8  p-4 rounded-b-lg text-gray-50 bg-neutral-800 border-t border-slate-50"
+              className="overflow-auto  py-8  p-4 rounded-b-lg text-gray-800 bg-gray-100 border-t border-slate-50"
               dangerouslySetInnerHTML={{
                 __html: Prism.highlight(code.answer, Prism.languages.js, "js"),
               }}
             />
+            <div>
+              <CommentSection
+                // // comments={comments}
+                // authorId={code.userId}
+                codeId={code.id}
+              ></CommentSection>
+            </div>
           </div>
         </div>
       </div>

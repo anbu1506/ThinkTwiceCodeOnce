@@ -1,11 +1,11 @@
 "use client";
 
-import { uploadCode } from "@/app/lib/actions";
+import { editCode } from "@/app/lib/actions";
 import { useState } from "react";
 
-export default function CodeForm({ Name }: { Name: string }) {
-  const [question, setQuestion] = useState<string>("");
-  const [answer, setAnswer] = useState<string>("");
+export default function EditForm({ Name , questionparam , answerparam, codeId }: { Name: string , questionparam: string , answerparam: string ,codeId:string}) {
+  const [question, setQuestion] = useState<string>(questionparam);
+  const [answer, setAnswer] = useState<string>(answerparam);
 
   const handleKeyDown = (event: any) => {
     if (event.key === "Tab") {
@@ -46,7 +46,8 @@ export default function CodeForm({ Name }: { Name: string }) {
       <p className="text-xl font-extrabold pt-6 px-4">
         {Name} / Upload
       </p>
-      <form action={uploadCode} className="w-full p-4">
+      <form action={editCode} className="w-full p-4">
+        <input hidden={true} type="text" name="codeId" value={codeId} />
         <div className="font-bold py-2">Question</div>
 
         <textarea

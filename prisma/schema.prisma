@@ -17,6 +17,7 @@ model Code {
   createdBy User @relation("MyCodes",fields: [userId],references: [id])
   userId   String 
   likedUsers Liked[]  @relation("LikedCodes")
+  comments Comment[]  @relation("ThisComments")
 }
 
 model User {
@@ -37,6 +38,25 @@ model Liked{
         userId String?
         code Code @relation("LikedCodes",fields: [codeId],references: [id])
         codeId Int
+}
+
+model Comment{
+    id Int @id @default(autoincrement())
+    author String 
+    content String @db.Text
+    time String
+    codeId Int
+    CommentedTo Code @relation("ThisComments",fields: [codeId],references: [id],onDelete: Cascade)
+    replies Replies[] @relation("ThisReplies")
+}
+
+model Replies{
+    id Int @id @default(autoincrement())
+    author String
+    time String
+    content String @db.Text
+    commentId Int
+    RepliedTo Comment @relation("ThisReplies",fields: [commentId],references: [id],onDelete: Cascade)
 }
 
 model Account {

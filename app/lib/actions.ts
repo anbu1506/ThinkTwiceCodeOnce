@@ -1,7 +1,6 @@
 "use server";
 
-import z, { date } from "zod";
-import { Code, User } from "@/prisma/types";
+import { Code } from "@/prisma/types";
 // import { createUser } from "@/prisma/orm/createUser"
 import { createCode } from "@/prisma/orm/createCode";
 import { redirect } from "next/navigation";
@@ -16,6 +15,28 @@ async function validateUser() {
   if (!session?.user) {
     redirect("/api/auth/signin");
   }
+}
+
+export async function editCode(formdata: FormData) {
+  noStore();
+  await validateUser();
+
+  const data = {
+    question: formdata.get("question"),
+    answer: formdata.get("answer"),
+  };
+  try {
+    await prisma.code.update({
+      where: {
+        id: parseInt(formdata.get("codeId") as string),
+      },
+      data: data as Code,
+    });
+  } catch (error) {
+    console.log("Error editing code");
+  }
+
+  redirect("/home/myAccount");
 }
 
 export async function uploadCode(formdata: FormData) {
@@ -51,7 +72,7 @@ export async function deleteCode(id: number) {
       },
     });
     if (likeId != null) {
-      const arr = likeId.map((x) => x.id);
+      const arr = likeId.map((x: any) => x.id);
       await prisma.liked.deleteMany({
         where: {
           id: {
@@ -60,6 +81,35 @@ export async function deleteCode(id: number) {
         },
       });
     }
+
+    const commentIds = await prisma.comment.findMany({
+      where:{
+        codeId:id
+      },
+      select:{
+        id:true
+      }
+    })
+
+    if(commentIds){
+      const arr = commentIds.map((x:any)=>x.id);
+      await prisma.replies.deleteMany(
+        {
+          where:{
+            commentId:{
+              in:arr
+            }
+          }
+        }
+      )
+    }
+
+    await prisma.comment.deleteMany({
+      where:{
+        codeId:id,
+      },
+    })
+
     await deleteCodeById(id);
   } catch (error) {
     console.log("Error deleting code", error);
@@ -155,4 +205,68 @@ export async function getProfileImage(userId: string) {
     },
   });
   return profileImage;
+}
+
+export async function getComments(codeId: number) {
+  noStore()
+  const comments = await prisma.comment.findMany({
+    where: {
+      codeId: codeId,
+    },
+    orderBy: {
+      id: "desc",
+    },
+    include: {
+      replies: true,
+    },
+  });
+
+
+  return comments;
+}
+
+export async function addComment(codeId: number, comment: string) {
+  noStore()
+  const session = await getSession();
+  if (!session?.user) {
+    redirect("/api/auth/signin");
+  }
+  else{
+    await prisma.comment.create({
+      data:{
+        content:comment,
+        codeId:codeId,
+        time:new Date().toLocaleDateString("en-US",{ 
+          month: 'long', // Display full month name
+          day: '2-digit', // Display day with leading zero if necessary
+          year: 'numeric' // Display full year
+      }),
+      author:session.user.name
+      }
+    })
+    return true;
+  }
+  
+}
+export async function addReply(commentId: number, reply: string) {
+  noStore()
+  const session = await getSession();
+  if (!session?.user) {
+    redirect("/api/auth/signin");
+  }
+  else{
+    await prisma.replies.create({
+      data:{
+        author:session.user.name,
+        time:new Date().toLocaleDateString("en-US",{ 
+          month: 'long', // Display full month name
+          day: '2-digit', // Display day with leading zero if necessary
+          year: 'numeric' // Display full year
+      }),
+      content:reply,
+      commentId:commentId
+      }
+    })
+    return true;
+  }
 }

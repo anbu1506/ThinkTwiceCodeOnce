@@ -3,10 +3,13 @@ import { deleteCode } from "@/app/lib/actions";
 import { Code } from "@/prisma/types";
 import {
   HandThumbUpIcon as LikedIcon,
+  PencilIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
+import Link from "next/link";
 import Prism from "prismjs";
-import "prismjs/themes/prism-tomorrow.css";
+
+import "prismjs/themes/prism-solarizedlight.css";
 import { useState } from "react";
 
 export default function Preview(code: Code) {
@@ -24,7 +27,7 @@ export default function Preview(code: Code) {
       <div>
         <div className="flex justify-center items-center ">
           <div className=" w-[350px] md:w-1/2  rounded-lg shadow-lg border border-slate-50">
-            <div className="bg-neutral-700 p-2  text-white  flex rounded-t-lg justify-between  shadow-lg">
+            <div className="bg-neutral-500 p-2  text-white  flex rounded-t-lg justify-between  shadow-lg">
               <div className="text-lg px-4 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -40,9 +43,11 @@ export default function Preview(code: Code) {
                     d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
                   />
                 </svg>
-                <span className="ml-2">{code.question}</span>
               </div>
               <div className="flex items-center justify-end mx-2 my-2">
+                <Link href={`/home/${code.id}/edit`}>
+                <PencilIcon className="h-6 w-6 mx-4"></PencilIcon>
+                </Link>
                 <div
                   onClick={async () => {
                     if (confirm("Do you want to delete?")) {
@@ -77,9 +82,11 @@ export default function Preview(code: Code) {
                 )}
               </div>
             </div>
-            {/* <pre className="overflow-auto  py-8  p-4 rounded-b-lg  bg-white">{answer}</pre> */}
+            <pre className="overflow-auto p-7 bg-gray-100  font-extrabold text-gray-700">
+              {code.question}
+            </pre>
             <pre
-              className="overflow-auto  py-8  p-4 rounded-b-lg text-gray-50 bg-neutral-800 border-t border-slate-50"
+              className="overflow-auto  py-8  p-4 rounded-b-lg text-gray-700 bg-gray-100 border-t border-slate-50"
               dangerouslySetInnerHTML={{
                 __html: Prism.highlight(code.answer, Prism.languages.js, "js"),
               }}
