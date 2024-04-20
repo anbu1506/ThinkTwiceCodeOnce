@@ -43,7 +43,6 @@ export default function Preview(code: Code) {
                     d="m6.75 7.5 3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0 0 21 18V6a2.25 2.25 0 0 0-2.25-2.25H5.25A2.25 2.25 0 0 0 3 6v12a2.25 2.25 0 0 0 2.25 2.25Z"
                   />
                 </svg>
-                {/* <span className="ml-2">{code.question}</span> */}
               </div>
               <div className="flex items-center justify-end mx-2 my-2">
                 <Link href={`/home/${code.id}/edit`}>
@@ -86,7 +85,6 @@ export default function Preview(code: Code) {
             <pre className="overflow-auto p-7 bg-gray-100  font-extrabold text-gray-700">
               {code.question}
             </pre>
-            {/* <pre className="overflow-auto  py-8  p-4 rounded-b-lg  bg-white">{answer}</pre> */}
             <pre
               className="overflow-auto  py-8  p-4 rounded-b-lg text-gray-700 bg-gray-100 border-t border-slate-50"
               dangerouslySetInnerHTML={{
