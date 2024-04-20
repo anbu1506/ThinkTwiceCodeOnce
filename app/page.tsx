@@ -20,7 +20,7 @@ export default async function Root({
           <LoginBtn></LoginBtn>
         </div>
         {searchParams.search && (
-          <div className="fixed top-24 left-0 w-full h-full flex justify-center">
+          <div className="absolute top-24 left-0 w-full flex justify-center">
             <SearchPreview searchParams={searchParams}></SearchPreview>
           </div>
         )}
